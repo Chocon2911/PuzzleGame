@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Block : HuyMonoBehaviour, Touchable
 {
-    public const float BlockGap = 10;
+    public const float BlockGap = 1.5f;
 
     //==========================================Variable==========================================
     //===Component===
@@ -49,6 +49,7 @@ public class Block : HuyMonoBehaviour, Touchable
     //============================================Move============================================
     private void Moving()
     {
+        this.rb.velocity = Vector3.zero;
         if (this.isHit) this.MoveBackward();
         else if (this.isMovingWithDir) this.MoveWithDir();
     }
@@ -61,9 +62,10 @@ public class Block : HuyMonoBehaviour, Touchable
 
     private void MoveBackward()
     {
-        Vector3.Lerp(transform.position, this.tempCollidedBlockPos, this.so.MoveBackwardSpeed * Time.deltaTime);
+        float distance = Vector3.Distance(transform.position, this.tempCollidedBlockPos);
+        this.rb.velocity = this.so.MoveBackwardSpeed * (BlockGap - distance) * (-this.so.MoveDir);
 
-        if (Vector3.Distance(transform.position, this.tempCollidedBlockPos) < BlockGap) return;
+        if (distance < BlockGap - 0.1f) return;
         this.isHit = false;
     }
 
@@ -80,6 +82,7 @@ public class Block : HuyMonoBehaviour, Touchable
     //==========================================Collide===========================================
     private void CollideWithBlock(Collision collision)
     {
+        if (!this.isMovingWithDir) return;
         this.tempCollidedBlockPos = collision.transform.position;
         this.isMovingWithDir = false;
         this.isHit = true;
@@ -88,6 +91,7 @@ public class Block : HuyMonoBehaviour, Touchable
     //=========================================Touchable==========================================
     void Touchable.Touch()
     {
+        if (this.isHit) return;
         this.isMovingWithDir = true;
     }
 }

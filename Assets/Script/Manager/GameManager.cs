@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : HuyMonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //==========================================Variable==========================================
+    private static GameManager instance;
+    public static GameManager Instance => instance;
+
+    //===========================================Unity============================================
+    protected override void Awake()
     {
-        
+        if (instance != null)
+        {
+            Debug.LogError("One GameManager only (this)", gameObject);
+            Debug.LogError("One GameManager only (instance)", instance.gameObject);
+            return;
+        }
+
+        instance = this;
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //===========================================Method===========================================
 }

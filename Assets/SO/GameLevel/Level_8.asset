@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveStepLimit: 10
   LevelIndex: 8
-  MaxPoint: 8
+  MaxPoint: 7

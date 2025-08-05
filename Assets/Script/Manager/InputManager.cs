@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class InputManager : HuyMonoBehaviour
     //===========================================Method===========================================
     private void TouchingScreen()
     {
+        if (Time.timeScale == 0) return;
+        if (!LevelManager.Instance.CanMoveBlock()) return;
         if (Input.touchCount <= 0 || Input.GetTouch(0).phase != TouchPhase.Began) return;
         Touch touch = Input.GetTouch(0);
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
@@ -23,6 +26,5 @@ public class InputManager : HuyMonoBehaviour
         
         if (touchable == null) return;
         touchable.Touch();
-        Debug.Log("Fuck");
     }
 }

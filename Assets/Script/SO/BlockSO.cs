@@ -10,4 +10,5 @@ public class BlockSO : ScriptableObject
     public float speedUpTime;
     public Vector3 MoveDir;
     public float DespawnDistance;
+    public int point;
 }

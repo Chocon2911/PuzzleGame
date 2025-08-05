@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Forward
   m_EditorClassIdentifier: 
   MoveBackwardSpeed: 2
-  MoveSpeed: 5
+  MoveSpeed: 20
   speedUpTime: 1
-  MoveDir: {x: 0, y: 0, z: -1}
-  DespawnDistance: 100
+  MoveDir: {x: 0, y: 0, z: 1}
+  DespawnDistance: 20
+  point: 1
